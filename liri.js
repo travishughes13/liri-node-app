@@ -2,7 +2,7 @@
 var keys = require("./keys.js");
 var request = require('request');
 var spotter = require('spotify');
-var twit = require('twitter');
+var Twit = require('twitter');
 var fs = require("fs");
 
 // These are some easy variables to make calls easier
@@ -12,7 +12,7 @@ var omdb = "movie-this";
 var simon = "do-what-it-says";
 var userInput = process.argv[2];
 
-var twitKeys = keys.twitterKeys;
+var twitKeys = new Twit (keys.twitterKeys);
 
 var spotKeys = keys.spotifyKeys;
 
@@ -163,26 +163,29 @@ function simonSays() {
 };
 
 function getTwit() {
-
+    if (userInput === myTweets) {
+        // This is the Twitter module query
+        var params = {screen_name: 'VariousHughes'};
+            twitKeys.get('statuses/user_timeline', params, function(error, tweets, response) {
+            if (!error) {
+                
+                for(var i = 0; i < 20; i++) {
+                    console.log('===========================================');
+                    console.log(tweets[i].text);
+                    console.log('===========================================');
+                    console.log(tweets[i].created_at);
+                    console.log('===========================================');
+                }
+            }
+            if(error) {
+                console.log('Ya done fucked up');
+                console.log(error);
+            }
+        });
+    }
 };
-
-
-
 
 getTwit();
 movieCall();
 spotted();
 simonSays();
-
-// This is the Twitter module query
-// var params = {screen_name: 'VariousHughes'};
-// twitKeys.get('statuses/user_timeline', params, function(error, tweets, response) {
-//   if (!error) {
-//     console.log(tweets);
-//   }
-//   if(error) {
-//       console.log('Ya done fucked up');
-//       console.log(error);
-//   }
-// });
-
