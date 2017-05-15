@@ -144,7 +144,7 @@ function simonSays() {
         fs.readFile(textFile, "utf8", function(err, data)
             {
                 var data1;
-                var data2;
+                var data2 = '';
 
                 function parser() {
                     data1 = data.split(',');
@@ -157,7 +157,7 @@ function simonSays() {
 
                 console.log('node liri.js ' + data2);
 
-                spotted();
+                spotted(data2);
         });
 };
 };
