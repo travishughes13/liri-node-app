@@ -178,7 +178,6 @@ function getTwit() {
                 }
             }
             if(error) {
-                console.log('Ya done fucked up');
                 console.log(error);
             }
         });
