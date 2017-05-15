@@ -144,20 +144,32 @@ function simonSays() {
         fs.readFile(textFile, "utf8", function(err, data)
             {
                 var data1;
-                var data2 = '';
+                data1 = data.split(',');
+                var data2 = data1[1];
 
-                function parser() {
-                    data1 = data.split(',');
-                    for (i = 0; i < data1.length; i++) {
-                        data2 = data2 + data1[i] + ' ';
-                    }
-                }
+        // This is the Spotify module query
+        spotter.search({ type: 'track', query: data2 }, function(err, data) {
+            if ( err ) {
+                console.log('Error occurred: ' + err);
+                return;
+            }
+            
+            var artist = data.tracks.items[0].album.artists[0].name;
+            var songTitle = data.tracks.items[0].name;
+            var preview = data.tracks.items[0].preview_url;
+            var albumName = data.tracks.items[0].album.name;
 
-                parser();
+            console.log('===========================================');
+            console.log('Artist: ' + artist);
+            console.log('===========================================');
+            console.log('Song Title: ' + songTitle);
+            console.log('===========================================');
+            console.log('Listen to a sample here: ' + preview);
+            console.log('===========================================');
+            console.log('Album: ' + albumName);
+            console.log('===========================================');
+        });
 
-                console.log('node liri.js ' + data2);
-
-                spotted(data2);
         });
 };
 };
