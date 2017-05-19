@@ -21,45 +21,18 @@ var spotKeys = keys.spotifyKeys;
 function movieCall () {
 if (userInput === omdb) {
 
-    var movie = process.argv[3];
+    var movie = '';
+        
+        function movieMaker () {
+            for (var i = 3; i < process.argv.length; i++) {
+            movie = movie + process.argv[i] + ' ';
+            };
+            if (process.argv[3] === undefined) {
+                movie = 'Mr Nobody';
+            }
+        };
 
-    var brutal = 'Mr+Nobody';
-
-        if (movie === undefined) {
-
-            var omdbURL = "http://www.omdbapi.com/?tomatoes=true&t=" + brutal;
-            
-                request(omdbURL, function (error, response, body) {
-                if (!error) {
-
-                    var touchMy = JSON.parse(body);
-
-                    console.log('Title: ', touchMy.Title);
-                    console.log('===========================================');
-                    console.log("Released: ", touchMy.Released);
-                    console.log('===========================================');
-                    console.log('Rating: ', touchMy.Ratings[0].Value);
-                    console.log('===========================================');
-                    console.log('Country: ', touchMy.Country);
-                    console.log('===========================================');
-                    console.log('Language: ', touchMy.Language);
-                    console.log('===========================================');
-                    console.log('Plot: ', touchMy.Plot);
-                    console.log('===========================================');
-                    console.log('Actors: ', touchMy.Actors);
-                    console.log('===========================================');
-                    console.log('Rotten Tomatoes Link: ', touchMy.tomatoURL);
-                    console.log('===========================================');
-
-                }
-                if (error) {
-                    console.log('error:', error); // Print the error if one occurred 
-                }
-                
-            });
-        }
-
-        else {
+        movieMaker();
 
         var omdbURL = "http://www.omdbapi.com/?tomatoes=true&t=" + movie;
 
@@ -92,7 +65,6 @@ if (userInput === omdb) {
             
         });
      }
-};
 };
 
 function spotted () {
@@ -143,8 +115,7 @@ function simonSays() {
 
         fs.readFile(textFile, "utf8", function(err, data)
             {
-                var data1;
-                data1 = data.split(',');
+                var data1 = data.split(',');
                 var data2 = data1[1];
 
         // This is the Spotify module query
